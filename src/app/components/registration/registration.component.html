@@ -1,0 +1,71 @@
+<form [formGroup]="registrationForm" class="w-[250px]">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input
+      formControlName="email"
+      type="email"
+      class="form-control"
+      id="exampleInputEmail1"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputUsername" class="form-label">Name</label>
+    <input
+      formControlName="firstname"
+      type="username"
+      class="form-control"
+      id="exampleInputUsername"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputUsername" class="form-label">Last name</label>
+    <input
+      formControlName="lastname"
+      type="username"
+      class="form-control"
+      id="exampleInputUsername"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input
+      formControlName="password"
+      type="password"
+      class="form-control"
+      id="exampleInputPassword1"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Role</label>
+    <select
+      formControlName="roles"
+      class="form-select form-select-sm"
+      aria-label="Small select example"
+    >
+      <option value="" disabled selected hidden>
+        Choose the role for new user
+      </option>
+      @for(role of roles(); track role.id) {
+      <option [value]="role.id">{{ role.name }}</option>
+      }
+    </select>
+    <p>{{ chosenRole().description }}</p>
+  </div>
+  <button
+    type="submit"
+    [disabled]="!registrationForm.valid"
+    class="btn btn-primary w-full mt-2"
+    (click)="onSubmit()"
+  >
+    Create New User
+  </button>
+  <button
+    type="submit"
+    [disabled]="!registrationForm.valid"
+    class="btn btn-primary w-full mt-2"
+    (click)="onSubmit(true)"
+  >
+    Create New User and Redirect
+  </button>
+</form>
+<!-- <pre>{{ roles() | json }}</pre> -->

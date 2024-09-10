@@ -1,0 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
+.bg-container {
+  background-image: url("./assets/bg.svg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}

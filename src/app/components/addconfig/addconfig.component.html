@@ -1,0 +1,89 @@
+<form [formGroup]="configsForm" class="w-[250px]">
+  <div class="mb-3">
+    <label for="address" class="form-label">Address</label>
+    <input
+      formControlName="address"
+      type="text"
+      class="form-control"
+      id="address"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="img" class="form-label">Header image</label>
+    <input
+      formControlName="header_img"
+      type="text"
+      class="form-control"
+      id="img"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="partner_id" class="form-label">Partner ID</label>
+    <input
+      formControlName="partner_id"
+      type="text"
+      class="form-control"
+      id="partner_id"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="budget" class="form-label">Budget</label>
+    <input
+      formControlName="budget"
+      type="text"
+      class="form-control"
+      id="budget"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="color_schemas" class="form-label">Color schema</label>
+    <input
+      formControlName="color_schemas"
+      type="text"
+      class="form-control"
+      id="color_schemas"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="avatar" class="form-label">Avatar</label>
+    <input
+      formControlName="avatar"
+      type="text"
+      class="form-control"
+      id="avatar"
+    />
+  </div>
+
+  <div
+    *ngIf="imgUrl()"
+    class="h-[100px] w-[200px] mb-8 overflow-hidden object-fill avatar-block"
+  >
+    <img [src]="imgUrl()" alt="Avatar Preview" />
+  </div>
+
+  <div class="form-check">
+    <input
+      formControlName="is_active"
+      class="form-check-input"
+      type="checkbox"
+      value=""
+      id="flexCheckIndeterminate"
+    />
+    <label class="form-check-label" for="flexCheckIndeterminate">
+      Is active
+    </label>
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="!configsForm.valid"
+    class="btn btn-primary w-full mt-2"
+    (click)="onSubmit()"
+  >
+    Set config
+  </button>
+</form>
