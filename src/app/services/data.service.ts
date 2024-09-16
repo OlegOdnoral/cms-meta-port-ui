@@ -1,4 +1,4 @@
-import { map, switchMap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { ApiService } from './api.service';
 import { inject, Injectable, signal } from '@angular/core';
 
@@ -11,6 +11,14 @@ export class DataService {
   users = signal<any>(null);
   roles = signal<any>(null);
   JWT = signal<any>('');
+
+  constructor() {
+    const token = localStorage.getItem('panel_jwt');
+    if (token) {
+      this.JWT.set(token);
+      this.ApiService.jwt = token;
+    }
+  }
 
   getConfigs() {
     return this.ApiService.getConfigs().pipe(
@@ -38,7 +46,15 @@ export class DataService {
 
   loginUsers(data: any) {
     return this.ApiService.login(data).pipe(
-      map((res) => this.JWT.set(res.jwt))
+      map((res) => this.JWT.set(res.jwt)),
+      tap(() => localStorage.setItem('panel_jwt', this.JWT()))
+    );
+  }
+
+  loginAdminUsers(data: any) {
+    return this.ApiService.loginAdmin(data).pipe(
+      map((res) => this.JWT.set(res.token)),
+      tap(() => localStorage.setItem('panel_jwt', this.JWT()))
     );
   }
 

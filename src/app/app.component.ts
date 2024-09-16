@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
         tap((res) => {
           if (data.isRedirected) {
             this.urlToRedirect.set(
-              `http://localhost:1337/admin/auth/register?registrationToken=${res.data.registrationToken}`
+              `http://localhost:4201/admin/auth/register?registrationToken=${res.data.registrationToken}`
             );
           }
         }),
@@ -63,6 +63,10 @@ export class AppComponent implements OnInit {
 
   loginUser(data: any) {
     this.dataService.loginUsers(data).subscribe();
+  }
+
+  loginAdminUser({ identifier, password }: { identifier: string; password: string }) {
+    this.dataService.loginAdminUsers({ email: identifier, password }).subscribe();
   }
 
   addConfig(data: any) {
