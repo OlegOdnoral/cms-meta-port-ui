@@ -1,6 +1,52 @@
 <div class="w-full bg-gray-950 text-white page-container">
   <div class="flex flex-row w-full h-[100%] sticky p-20 bg-container">
     <div class="content-block flex flex-col w-full">
+
+
+      <div class="w-full border-2 rounded border-slate-500 p-8 flex justify-between items-center">
+        <ng-container *ngFor="let file of files | async">
+          <div class="flex flex-column">
+            <h2>Update file</h2>
+            <div class="form-group">
+              <label for="file">Choose File</label>
+              <input type="file"
+                     [id]="file?.id"
+                     accept="image/png"
+                     (change)="updateFileById($event, file?.id)">
+            </div>
+            <div>
+              <input type="button" value="Delete" (click)="deleteFile(file?.id)">
+            </div>
+            <div>
+              <img alt="text" [src]="'http://localhost:4201'+file.url">
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <hr>
+      <div class="w-full border-2 rounded border-slate-500 p-8 flex justify-between items-center">
+        <h2>Upload file</h2>
+        <div class="form-group">
+          <label for="file">Choose File</label>
+          <input type="file"
+                 id="file"
+                 accept="image/png"
+                 (change)="uploadFile($event)">
+        </div>
+      </div>
+
+      <div class="w-full border-2 rounded border-slate-500 p-8 flex justify-between items-center">
+        <h2>Update file</h2>
+        <div class="form-group">
+          <label for="file">Choose File</label>
+          <input type="file"
+                 id="file_2"
+                 accept="image/png"
+                 (change)="updateFile($event)">
+        </div>
+      </div>
+
       <div
         class="w-full border-2 rounded border-slate-500 p-8 flex justify-between items-center"
       >

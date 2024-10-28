@@ -12,9 +12,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { AddconfigComponent } from './components/addconfig/addconfig.component';
 import { UsersSectionComponent } from './components/users-section/users-section.component';
-import { switchMap, tap } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs';
 import { DataService } from './services/data.service';
 import { ConfigsSectionComponent } from './components/configs-section/configs-section.component';
+import { AsyncPipe, NgForOf } from "@angular/common";
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,8 @@ import { ConfigsSectionComponent } from './components/configs-section/configs-se
     ConfigsSectionComponent,
     UsersSectionComponent,
     HttpClientModule,
+    AsyncPipe,
+    NgForOf,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -40,6 +43,10 @@ export class AppComponent implements OnInit {
   urlToRedirect = signal<string>('');
 
   jwt: WritableSignal<any> = this.dataService.JWT;
+
+  fileToUpload: File | null = null;
+
+  files = this.dataService.getFiles();
 
   registerUser(data: any) {
     return this.apiService
@@ -73,8 +80,44 @@ export class AppComponent implements OnInit {
     this.dataService.addConfigs(data).subscribe();
   }
 
+  getFiles() {
+    this.dataService.getFiles().pipe(take(1)).subscribe((data: any) => console.log(data))
+  }
+
+  uploadFile($event: any) {
+    this.fileToUpload = $event.target?.files.item(0);
+    console.log(this.fileToUpload)
+    this.dataService.uploadFile({
+      files: this.fileToUpload,
+      ref: 'api::partner-config.partner-config',
+      refId: '12',
+      field: 'pertner_logo'
+    }).pipe(take(1)).subscribe(() => this.getFiles())
+  }
+
+  deleteFile(id: string) {
+    this.dataService.deleteFile(id)
+      .pipe(take(1))
+      .subscribe(() => this.files = this.dataService.getFiles())
+  }
+
+  updateFile($event: any) {
+    this.fileToUpload = $event.target?.files.item(0) as File;
+    this.dataService.updateFile({
+      files: this.fileToUpload
+    }).pipe(take(1)).subscribe(() => this.files = this.dataService.getFiles())
+  }
+
+  updateFileById($event: any, id: string) {
+    this.fileToUpload = $event.target?.files.item(0) as File;
+    this.dataService.updateFile({
+      files: this.fileToUpload
+    }, id).pipe(take(1)).subscribe(() => this.files = this.dataService.getFiles())
+  }
+
   ngOnInit(): void {
     this.dataService.getUsers();
     this.dataService.getRoles();
+    this.getFiles();
   }
 }

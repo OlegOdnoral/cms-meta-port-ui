@@ -106,4 +106,63 @@ export class ApiService {
       { body: data, headers: this.headers }
     );
   }
+
+
+  getFiles() {
+    const endpoint = 'http://localhost:4201/api/upload/files';
+
+    const uploadHeader = new HttpHeaders({
+      Authorization: `Bearer ${this.jwt2}`,
+      'X-Auth-token': this.jwt2
+    });
+
+    return this.http
+      .get(endpoint, { headers: uploadHeader });
+  }
+
+  uploadFile(body: any) {
+    const endpoint = 'http://localhost:4201/api/upload';
+    const formData = this.getFormData(body);
+
+
+    const uploadHeader = new HttpHeaders({
+      Authorization: `Bearer ${this.jwt2}`,
+      'X-Auth-token': this.jwt2
+    });
+
+    return this.http
+      .post(endpoint, formData, { headers: uploadHeader });
+  }
+
+  deleteFile(id: string) {
+    const endpoint = `http://localhost:4201/api/upload/files/${id}`;
+
+    const uploadHeader = new HttpHeaders({
+      Authorization: `Bearer ${this.jwt2}`,
+      'X-Auth-token': this.jwt2
+    });
+
+    return this.http
+      .delete(endpoint, { headers: uploadHeader })
+  }
+
+  updateFile(body: any, id = '1') {
+    const endpoint = `http://localhost:4201/api/upload?id=${id}`;
+    const formData = this.getFormData(body);
+
+    const uploadHeader = new HttpHeaders({
+      Authorization: `Bearer ${this.jwt2}`,
+      'X-Auth-token': this.jwt2
+    });
+
+    return this.http
+      .post(endpoint, formData, { headers: uploadHeader })
+  }
+
+  getFormData(object: any) {
+    const formData = new FormData();
+    Object.keys(object).forEach(key => formData.append(key, object[key]));
+    return formData;
+  }
+
 }

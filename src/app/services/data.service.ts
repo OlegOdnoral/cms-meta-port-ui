@@ -20,6 +20,23 @@ export class DataService {
     }
   }
 
+  getFiles(): any {
+    return this.ApiService.getFiles();
+  }
+
+
+  uploadFile(data: any): any {
+    return this.ApiService.uploadFile(data);
+  }
+
+  deleteFile(id: string): any {
+    return this.ApiService.deleteFile(id);
+  }
+
+  updateFile(data: any, id?: string): any {
+    return this.ApiService.updateFile(data, id);
+  }
+
   getConfigs() {
     return this.ApiService.getConfigs().pipe(
       map((res: any) => this.configs.set(res.data))
