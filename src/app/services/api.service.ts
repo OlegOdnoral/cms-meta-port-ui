@@ -36,12 +36,12 @@ export class ApiService {
   }
 
   getConfigs() {
-    return this.http.get('http://localhost:4201/api/partner-configs');
+    return this.http.get('http://localhost:4202/api/partner-configs?pLevel=2');
   }
 
   getConfigsC() {
-    // return this.http.get('http://localhost:4201/custom-api/cust_api_v1', {
-    return this.http.get('http://localhost:4201/api/partner-by-user', {
+    // return this.http.get('http://localhost:4202/custom-api/cust_api_v1', {
+    return this.http.get('http://localhost:4202/api/partner-by-user', {
       headers: this.headers,
     });
   }
@@ -55,13 +55,13 @@ export class ApiService {
     color_schemas: string;
     avatar: string;
   }): Observable<any> {
-    return this.http.post('http://localhost:4201/api/partner-configs', {
+    return this.http.post('http://localhost:4202/api/partner-configs', {
       data,
     }, { headers: this.headers });
   }
 
   deleteConfig(id: string) {
-    return this.http.delete(`http://localhost:4201/api/partner-configs/${id}`);
+    return this.http.delete(`http://localhost:4202/api/partner-configs/${id}`);
   }
 
   registerUser(data: {
@@ -70,30 +70,30 @@ export class ApiService {
     lastname: string;
     roles: string[];
   }): Observable<any> {
-    return this.http.post('http://localhost:4201/admin/users', data, {
+    return this.http.post('http://localhost:4202/admin/users', data, {
       headers: this.headers,
     });
   }
 
   loginAdmin(data: { email: string; password: string }): Observable<any> {
-    return this.http.post<any>('http://localhost:4201/admin/login', data).pipe(map(res => res.data));
+    return this.http.post<any>('http://localhost:4202/admin/login', data).pipe(map(res => res.data));
   }
 
   login(data: { identifier: string; password: string }): Observable<any> {
-    return this.http.post<any>('http://localhost:4201/api/auth/local', data);
+    return this.http.post<any>('http://localhost:4202/api/auth/local', data);
   }
 
 
   getUsers(): Observable<any> {
-    // return this.http.get('http://localhost:4201/api/users');
+    // return this.http.get('http://localhost:4202/api/users');
     return this.http.get(
-      'http://localhost:4201/admin/users/?pageSize=10&page=1&sort=firstname',
+      'http://localhost:4202/admin/users/?pageSize=10&page=1&sort=firstname',
       { headers: this.headers }
     );
   }
 
   getRoles(): Observable<any> {
-    return this.http.get('http://localhost:4201/admin/roles', {
+    return this.http.get('http://localhost:4202/admin/roles', {
       headers: this.headers,
     });
   }
@@ -102,14 +102,14 @@ export class ApiService {
     const data = { id: +id };
     return this.http.request(
       'delete',
-      `http://localhost:4201/admin/users/batch-delete`,
+      `http://localhost:4202/admin/users/batch-delete`,
       { body: data, headers: this.headers }
     );
   }
 
 
   getFiles() {
-    const endpoint = 'http://localhost:4201/api/upload/files';
+    const endpoint = 'http://localhost:4202/api/upload/files';
 
     const uploadHeader = new HttpHeaders({
       Authorization: `Bearer ${this.jwt2}`,
@@ -121,7 +121,7 @@ export class ApiService {
   }
 
   uploadFile(body: any) {
-    const endpoint = 'http://localhost:4201/api/upload';
+    const endpoint = 'http://localhost:4202/api/upload';
     const formData = this.getFormData(body);
 
 
@@ -135,7 +135,7 @@ export class ApiService {
   }
 
   deleteFile(id: string) {
-    const endpoint = `http://localhost:4201/api/upload/files/${id}`;
+    const endpoint = `http://localhost:4202/api/upload/files/${id}`;
 
     const uploadHeader = new HttpHeaders({
       Authorization: `Bearer ${this.jwt2}`,
@@ -147,7 +147,7 @@ export class ApiService {
   }
 
   updateFile(body: any, id = '1') {
-    const endpoint = `http://localhost:4201/api/upload?id=${id}`;
+    const endpoint = `http://localhost:4202/api/upload?id=${id}`;
     const formData = this.getFormData(body);
 
     const uploadHeader = new HttpHeaders({
