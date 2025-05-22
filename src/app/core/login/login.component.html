@@ -1,0 +1,48 @@
+<div class="flex justify-content-center p-4">
+
+  <div class="flex flex-column gap-4">
+    <div>
+      <h1 class="text-center">Login</h1>
+    </div>
+    <div>
+      <form
+        class="flex flex-column gap-2"
+        [formGroup]="loginForm"
+        (ngSubmit)="submitForm()"
+      >
+        <div>
+          <mat-form-field class="w-full">
+            <mat-label>Enter your email</mat-label>
+            <input
+              matInput
+              placeholder="some-mail@example.com"
+              formControlName="email"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="w-full">
+            <mat-label>Enter your password</mat-label>
+            <input
+              formControlName="password"
+              matInput [type]="hidePassword() ? 'password' : 'text'"/>
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="togglePassword($event)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePassword()"
+            >
+              <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="flex justify-content-center">
+          <button [disabled]="!loginForm.valid" mat-flat-button class="button" type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
