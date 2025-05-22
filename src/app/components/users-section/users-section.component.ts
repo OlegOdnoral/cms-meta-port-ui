@@ -16,12 +16,11 @@ import { ApiService } from '../../services/api.service';
 import { skip, switchMap, take } from 'rxjs';
 
 @Component({
-  selector: 'app-users-section',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './users-section.component.html',
-  styleUrl: './users-section.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-users-section',
+    imports: [CommonModule],
+    templateUrl: './users-section.component.html',
+    styleUrl: './users-section.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersSectionComponent {
   apiService = inject(ApiService);

@@ -18,22 +18,21 @@ import { ConfigsSectionComponent } from './components/configs-section/configs-se
 import { AsyncPipe, NgForOf } from "@angular/common";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    RegistrationComponent,
-    LoginComponent,
-    AddconfigComponent,
-    ConfigsSectionComponent,
-    UsersSectionComponent,
-    HttpClientModule,
-    AsyncPipe,
-    NgForOf,
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  providers: [ApiService, DataService],
+    selector: 'app-root',
+    imports: [
+        RouterOutlet,
+        RegistrationComponent,
+        LoginComponent,
+        AddconfigComponent,
+        ConfigsSectionComponent,
+        UsersSectionComponent,
+        HttpClientModule,
+        AsyncPipe,
+        NgForOf,
+    ],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    providers: [ApiService, DataService]
 })
 export class AppComponent implements OnInit {
   http = inject(HttpClient);

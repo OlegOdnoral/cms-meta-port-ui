@@ -8,11 +8,10 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'app-addconfig',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './addconfig.component.html',
-  styleUrl: './addconfig.component.scss',
+    selector: 'app-addconfig',
+    imports: [CommonModule, ReactiveFormsModule],
+    templateUrl: './addconfig.component.html',
+    styleUrl: './addconfig.component.scss'
 })
 export class AddconfigComponent {
   imgUrl = signal<string | null>(null);

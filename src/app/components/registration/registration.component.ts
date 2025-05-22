@@ -12,11 +12,10 @@ import { FormControl } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 
 @Component({
-  selector: 'app-registration',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './registration.component.html',
-  styleUrl: './registration.component.scss',
+    selector: 'app-registration',
+    imports: [CommonModule, ReactiveFormsModule],
+    templateUrl: './registration.component.html',
+    styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent implements OnInit {
   dataService = inject(DataService);
